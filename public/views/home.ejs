@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Events</title>
+        <link rel="stylesheet" href="/public/resources/home/home.css" />
+        <link rel="stylesheet" href="/public/resources/dropdown.css" />
+    </head>
+    <body>
+
+        <%- include('includes/header.ejs') -%>
+
+        <h1>Events</h1>
+
+        <div class="event-container">
+
+            <table id="events">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Active</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>  
+        
+            <button id="register">Register</button>
+
+        </div>
+        
+        <!-- The Modal -->
+        <div id="modal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+            <span class="close">&times;</span>
+                <!-- Content -->
+                
+                <form id="form">
+                    <fieldset>
+                    <legend>Register Event</legend>
+                        
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name" value=""><br><br>
+                        
+                        <label for="age">Date:</label><br>
+                        <input type="date" id="date" name="date" value=""><br><br>
+                        
+                        <label for="active">Active:</label><br>
+                        <input type="checkbox" id="active" name="active" value=""><br><br>
+
+                        <input type="submit" id="create" value="Create">
+                    </fieldset>
+                </form> 
+                
+                <!-- ./Content -->
+            </div>
+
+        </div>
+
+
+
+
+        <!-- The Modal Pedido -->
+        <h1>Pedido do Cliente</h1>
+        <div id="resultadoPedido"></div>
+
+        <script src="/public/components/pedido.js"></script>
+        <script>
+                // Criando uma instância da classe Pedido
+                const pedido1 = new Pedido(1, 'João');
+
+                // Criando instâncias da classe Item
+                const item1 = new Item('Camisa', 2, 25);
+                const item2 = new Item('Calça', 1, 50);
+
+                // Adicionando os itens ao pedido
+                pedido1.adicionarItem(item1);
+                pedido1.adicionarItem(item2);
+
+                // Exibindo os resultados na página
+                const resultadoPedidoElement = document.getElementById('resultadoPedido');
+                resultadoPedidoElement.innerHTML = `
+                <h2>Total do Pedido:</h2>
+                <p>Cliente: ${pedido1.cliente}</p>
+                <p>Total: R$ ${pedido1.calcularTotal()}</p>
+                <h2>Itens do Pedido:</h2>
+                <ul>
+                    ${pedido1.itens.map(item => `<li>${item.quantidade}x ${item.descricao}: R$ ${item.calcularSubtotal()}</li>`).join('')}
+                </ul>
+                `;
+        </script>
+    
+    </body>
+</html>
+<script src="/public/resources/home/home.js" type="module"></script>
